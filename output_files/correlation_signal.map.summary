@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Tue Oct 08 15:43:37 2019
+Quartus Prime Version : 18.0.0 Build 614 04/24/2018 SJ Standard Edition
+Revision Name : correlation_signal
+Top-level Entity Name : correlation_signal
+Family : Cyclone IV E
+Total logic elements : 1,405
+    Total combinational functions : 967
+    Dedicated logic registers : 956
+Total registers : 956
+Total pins : 72
+Total virtual pins : 0
+Total memory bits : 148,480
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 1

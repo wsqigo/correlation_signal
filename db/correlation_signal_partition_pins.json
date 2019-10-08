@@ -1,0 +1,217 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "led[0]",
+					"strict" : false
+				},
+				{
+					"name" : "led[1]",
+					"strict" : false
+				},
+				{
+					"name" : "led[2]",
+					"strict" : false
+				},
+				{
+					"name" : "led[3]",
+					"strict" : false
+				},
+				{
+					"name" : "M",
+					"strict" : false
+				},
+				{
+					"name" : "ICG",
+					"strict" : false
+				},
+				{
+					"name" : "SH",
+					"strict" : false
+				},
+				{
+					"name" : "fpga_to_arm",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_data[0]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_data[1]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_data[2]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_data[3]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_data[4]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_data[5]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_data[6]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_data[7]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_data[8]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_data[9]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_data[10]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_data[11]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_data[12]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_data[13]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_data[14]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_data[15]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_wr",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_cs",
+					"strict" : false
+				},
+				{
+					"name" : "arm_to_fpga",
+					"strict" : false
+				},
+				{
+					"name" : "clk",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_addr[1]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_addr[2]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_addr[0]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_addr[3]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_addr[8]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_addr[7]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_addr[4]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_addr[5]",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_addr[6]",
+					"strict" : false
+				},
+				{
+					"name" : "rst",
+					"strict" : false
+				},
+				{
+					"name" : "fsmc_rd",
+					"strict" : false
+				},
+				{
+					"name" : "KEY",
+					"strict" : false
+				},
+				{
+					"name" : "ad1_data[0]",
+					"strict" : false
+				},
+				{
+					"name" : "ad1_data[6]",
+					"strict" : false
+				},
+				{
+					"name" : "ad1_data[7]",
+					"strict" : false
+				},
+				{
+					"name" : "ad1_data[8]",
+					"strict" : false
+				},
+				{
+					"name" : "ad1_data[9]",
+					"strict" : false
+				},
+				{
+					"name" : "ad1_data[10]",
+					"strict" : false
+				},
+				{
+					"name" : "ad1_data[11]",
+					"strict" : false
+				},
+				{
+					"name" : "ad1_data[4]",
+					"strict" : false
+				},
+				{
+					"name" : "ad1_data[5]",
+					"strict" : false
+				},
+				{
+					"name" : "ad1_data[2]",
+					"strict" : false
+				},
+				{
+					"name" : "ad1_data[3]",
+					"strict" : false
+				},
+				{
+					"name" : "ad1_data[1]",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

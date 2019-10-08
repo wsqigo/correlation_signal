@@ -1,0 +1,32 @@
+//单片机通过fsmc发送数据到write_ram中
+//发送完成，fpga读取write_ram中的数据并通过识别标志判断到来的包
+
+module arm_write_ram
+(
+input clk_100m,
+input rst_n,
+input WRn,
+input CSn,
+input [15:0]data,
+input [25:0]addr,
+
+input clk_25m,//write_ram读时钟
+input arm_to_fpga,
+output reg para_confi_acq_flag, //参数配置 应答标志 脉冲式信号
+output reg mode_select_acq_flag,//模式选择 应答标志 脉冲式信号
+output reg data_upload_acq_flag, //数据上传打开关闭 应答标志 脉冲式信号
+output reg [127:0]data_buffer/*synthesis noprune*/
+);
+
+wire wr = (CSn | WRn);
+reg wr_clk;
+always @(posedge clk_100m or negedge rst_n)
+begin
+	if(!rst_n)
+		wr_clk<=1'b1;
+	else
+		wr_clk<=wr;
+end
+
+
+endmodule

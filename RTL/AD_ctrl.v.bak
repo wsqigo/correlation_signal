@@ -1,0 +1,80 @@
+///模块说明////////////// 1
+//AD控制模块
+//功能：1、给定AD时钟
+//		 2、接收AD数据
+//		 3、将AD数据转换成mV电压值，转换方法是:AD_data*20000/4096 放大10倍
+//     注意这里是减去了1V的基准，后期根据功能修改
+//////////////////////////
+
+module AD_ctrl
+(
+input clk,                  //50m
+input rst_n,
+input[11:0] data_from_AD,   //AD过来的数据信号
+output clk_to_AD,           //输出给AD的时钟信号
+output reg[15:0]data_out	 //输出给下一级的幅值信号
+);
+					
+reg[26:0]data_temp;
+reg[26:0]data_temp1;
+
+assign clk_to_AD=clk; 
+
+
+//AD CH1通道数据颠倒
+always @(posedge ad_clk)
+begin
+    ad_ch1[11] <= data_from_AD[0];  
+    ad_ch1[10] <= data_from_AD[1];  
+    ad_ch1[9] <= data_from_AD[2];  
+    ad_ch1[8] <= data_from_AD[3];  
+    ad_ch1[7] <= data_from_AD[4];  
+    ad_ch1[6] <= data_from_AD[5];  
+    ad_ch1[5] <= data_from_AD[6];  
+    ad_ch1[4] <= data_from_AD[7];  
+    ad_ch1[3] <= data_from_AD[8];  
+    ad_ch1[2] <= data_from_AD[9];  
+    ad_ch1[1] <= data_from_AD[10];  
+    ad_ch1[0] <= data_from_AD[11];  	 
+end 
+
+
+/**********AD十六进制转十进制***********/
+volt_cal u2(
+		.ad_clk           		 (clk50m),	
+		.ad_ch1            		 (ad_ch1),           //ad1 data 12bit
+	
+		.ch1_dec                 (ch1_dec),         //ad1 BCD voltage
+	
+		.ch1_sig                 (ch1_sig),         //ch1 ad 正负
+	
+    );
+	 
+	 
+
+
+always@(posedge clk or negedge rst_n)
+begin
+ if(!rst_n)
+	 begin
+	 data_temp<=27'd0;
+	 data_out<=16'd0;
+	 data_temp1<=27'd0;
+	 end
+  else   
+    begin
+	 data_temp<=data_from_AD*(15'd20000);
+	 if(data_temp>=27'd40960000)
+	  begin
+	  data_temp1<=data_temp-27'd40960000;
+     data_out<={1'b0,data_temp1[26:12]};
+	  end
+	 else if(data_temp<27'd40960000)
+     data_out<=16'd0;
+	 end
+  
+end
+
+
+
+endmodule

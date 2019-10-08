@@ -1,0 +1,16 @@
+Fitter Status : Successful - Tue Oct 08 15:44:07 2019
+Quartus Prime Version : 18.0.0 Build 614 04/24/2018 SJ Standard Edition
+Revision Name : correlation_signal
+Top-level Entity Name : correlation_signal
+Family : Cyclone IV E
+Device : EP4CE15F23C8
+Timing Models : Final
+Total logic elements : 1,341 / 15,408 ( 9 % )
+    Total combinational functions : 971 / 15,408 ( 6 % )
+    Dedicated logic registers : 955 / 15,408 ( 6 % )
+Total registers : 956
+Total pins : 72 / 344 ( 21 % )
+Total virtual pins : 0
+Total memory bits : 148,480 / 516,096 ( 29 % )
+Embedded Multiplier 9-bit elements : 0 / 112 ( 0 % )
+Total PLLs : 1 / 4 ( 25 % )

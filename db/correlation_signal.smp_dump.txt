@@ -1,0 +1,50 @@
+
+State Machine - |correlation_signal|arm_read_pingpang_ram:U10|state2
+Name state2.idle state2.delay state2.read 
+state2.idle 0 0 0 
+state2.read 1 0 1 
+state2.delay 1 1 0 
+
+State Machine - |correlation_signal|arm_read_pingpang_ram:U10|state1
+Name state1.write2 state1.write1 state1.prepare state1.write_ram12_addr0 
+state1.write_ram12_addr0 0 0 0 0 
+state1.prepare 0 0 1 1 
+state1.write1 0 1 0 1 
+state1.write2 1 0 0 1 
+
+State Machine - |correlation_signal|channel_polling:U8|state
+Name state.read2 
+state.read1 0 
+state.read2 1 
+
+State Machine - |correlation_signal|data_collection:U4|single_channel:signal_ch1|read_fifo:read_fifo|state
+Name state.IDLE state.delay state.READ 
+state.IDLE 0 0 0 
+state.READ 1 0 1 
+state.delay 1 1 0 
+
+State Machine - |correlation_signal|data_collection:U4|single_channel:signal_ch1|signal_peak:u3|state
+Name state.idle state.10 state.count_state 
+state.idle 0 0 0 
+state.count_state 1 0 1 
+state.10 1 1 0 
+
+State Machine - |correlation_signal|arm_read_ram_return3:U3|state
+Name state.read_ram state.addr1 state.addr0 state.idle 
+state.idle 0 0 0 0 
+state.addr0 0 0 1 1 
+state.addr1 0 1 0 1 
+state.read_ram 1 0 0 1 
+
+State Machine - |correlation_signal|arm_write_ram:U2|state
+Name state.reco state.read7 state.read6 state.read5 state.read4 state.read3 state.read2 state.read1 state.read0 state.idle 
+state.idle 0 0 0 0 0 0 0 0 0 0 
+state.read0 0 0 0 0 0 0 0 0 1 1 
+state.read1 0 0 0 0 0 0 0 1 0 1 
+state.read2 0 0 0 0 0 0 1 0 0 1 
+state.read3 0 0 0 0 0 1 0 0 0 1 
+state.read4 0 0 0 0 1 0 0 0 0 1 
+state.read5 0 0 0 1 0 0 0 0 0 1 
+state.read6 0 0 1 0 0 0 0 0 0 1 
+state.read7 0 1 0 0 0 0 0 0 0 1 
+state.reco 1 0 0 0 0 0 0 0 0 1 

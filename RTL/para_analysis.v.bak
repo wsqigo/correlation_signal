@@ -1,0 +1,125 @@
+//参数包 数据解析并作出相应指令
+module para_analysis
+(
+input clk_25m,
+input rst_n,
+input para_confi_acq_flag,
+input data_upload_acq_flag,
+input [127:0]data_buffer,
+output reg para_cofi_flag, //参数发送到其他模块的标志信号 脉冲式信号
+output reg[7:0]channel1,            //通道选择 
+output reg[7:0]channel2,
+output reg[7:0]channel3,
+output reg[15:0]phase_shift,				//相位偏移信号
+output reg[15:0]pulse_threshold,			//脉冲阈值信号
+output reg[15:0]noise_threshold,			//噪声阈值信号
+output reg[15:0]in_ex_syn_choose,		//内外同步方式
+output reg[15:0]cycle_value,				//周期值
+
+output reg inter_syn_select, //非脉冲式信号 脉冲模式下 是否以内同步为基准，0是 1否 默认1否
+output reg contin_mode_open, //非脉冲式信号 1打开 0 关闭
+output reg pulse_mode_close, //脉冲式信号 脉冲一次即为关闭
+output reg pulse_mode_open   //脉冲式信号 脉冲即为打开一次
+);
+
+reg [7:0]contin_or_pulse_mode;//连续或者脉冲模式
+reg [7:0]pulse_mode_syn;      //脉冲模式内同步
+
+
+always@(posedge clk_25m or negedge rst_n)
+begin
+  if(!rst_n)
+    begin
+	   channel1<=8'h0;
+		channel2<=8'h0;
+		channel3<=8'h0;
+		phase_shift<=16'h0;
+		pulse_threshold<=16'h0;
+		noise_threshold<=16'h0;
+		in_ex_syn_choose<=16'h0;
+		cycle_value<=16'h0;
+		contin_or_pulse_mode<=8'h0;
+		pulse_mode_syn<=8'h0;
+		para_cofi_flag<=1'b0;
+		pulse_mode_open<=1'b0;
+		contin_mode_open<=1'b0;
+	 end
+  else if(para_confi_acq_flag)
+    begin
+	   para_cofi_flag<=1'b1;
+	   channel1<=data_buffer[111:104];
+      channel2<=data_buffer[103:96];
+		channel3<=data_buffer[95:88];
+      noise_threshold<=data_buffer[79:64];
+		pulse_threshold<=data_buffer[63:48];
+		phase_shift<=data_buffer[47:32];
+		in_ex_syn_choose<=data_buffer[31:16];
+		cycle_value<=data_buffer[15:0];
+	 end
+  else if(mode_select_acq_flag) 
+    begin		
+	   contin_or_pulse_mode<=data_buffer[111:104];//00 连续模式 01 脉冲模式
+		pulse_mode_syn<=data_buffer[103:96];
+	 end
+  else if(data_upload_acq_flag)  
+    begin
+		if((contin_or_pulse_mode==8'h00)&&(data_buffer[111:104]==8'h01))
+			begin
+				contin_mode_open<=1'b1;
+				pulse_mode_open<=1'b0;
+			end
+		else if((contin_or_pulse_mode==8'h00)&&(data_buffer[111:104]==8'h00))
+			begin
+				contin_mode_open<=1'b0;
+				pulse_mode_open<=1'b0;
+			end
+	   else if((contin_or_pulse_mode==8'h01)&&(data_buffer[103:96]==8'h01))	
+			begin
+				contin_mode_open<=1'b0;
+				pulse_mode_open<=1'b1;
+			end
+		else if((contin_or_pulse_mode==8'h01)&&(data_buffer[103:96]==8'h00))	
+			begin
+				contin_mode_open<=1'b0;
+				pulse_mode_open<=1'b0;
+				pulse_mode_close<=1'b1;//脉冲模式关闭，脉冲式信号
+			end	
+		else		
+			begin
+				contin_mode_open<=1'b0;
+				pulse_mode_open<=1'b0;
+				pulse_mode_close<=1'b0;
+			end	
+	 end	
+  else
+		begin
+			para_cofi_flag<=1'b0;
+			pulse_mode_open<=1'b0; //脉冲式信号
+			pulse_mode_close<=1'b0;
+			contin_mode_open<=contin_mode_open;//状态锁存
+		end
+
+end
+
+
+
+
+//脉冲模式下 内同步基准  0 以内同步为基准 1 不以内同步为基准
+always@(posedge clk_25m or negedge rst_n)
+begin
+	if(!rst_n)
+		inter_syn_select<=1'b1;
+	else if(pulse_mode_syn==8'h00)
+		inter_syn_select<=1'b0;
+	else if(pulse_mode_syn==8'h01)
+		inter_syn_select<=1'b1;
+	else
+		inter_syn_select<=inter_syn_select;
+end
+
+
+
+
+
+endmodule
+
